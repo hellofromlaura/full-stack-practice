@@ -4,8 +4,10 @@
   "description": "building a full stack application from scratch",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+   "compile": "babel src --presets react,es2015 --out-dir static",
+   "watch": "babel src --presets react,es2015 --out-dir static --watch",
+   "test": "echo \"Error: no test specified\" && exit 1"
+ },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/laurawolf/full-stack-practice.git"
@@ -20,6 +22,11 @@
   },
   "homepage": "https://github.com/laurawolf/full-stack-practice#readme",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1"
   }
 }

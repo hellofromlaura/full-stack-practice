@@ -1,0 +1,25 @@
+{
+  "name": "full-stack-practice",
+  "version": "1.0.0",
+  "description": "building a full stack application from scratch",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laurawolf/full-stack-practice.git"
+  },
+  "keywords": [
+    "MERN"
+  ],
+  "author": "Laura Wolfart",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/laurawolf/full-stack-practice/issues"
+  },
+  "homepage": "https://github.com/laurawolf/full-stack-practice#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}

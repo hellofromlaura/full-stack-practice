@@ -33,63 +33,8 @@ var IssueFilter = function (_React$Component) {
   return IssueFilter;
 }(React.Component);
 
-var IssueAdd = function (_React$Component2) {
-  _inherits(IssueAdd, _React$Component2);
-
-  function IssueAdd() {
-    _classCallCheck(this, IssueAdd);
-
-    return _possibleConstructorReturn(this, (IssueAdd.__proto__ || Object.getPrototypeOf(IssueAdd)).apply(this, arguments));
-  }
-
-  _createClass(IssueAdd, [{
-    key: "render",
-    value: function render() {
-      return React.createElement(
-        "div",
-        null,
-        "This is a placeholder for an Issue Add entry form."
-      );
-    }
-  }]);
-
-  return IssueAdd;
-}(React.Component);
-
-var IssueList = function (_React$Component3) {
-  _inherits(IssueList, _React$Component3);
-
-  function IssueList() {
-    _classCallCheck(this, IssueList);
-
-    return _possibleConstructorReturn(this, (IssueList.__proto__ || Object.getPrototypeOf(IssueList)).apply(this, arguments));
-  }
-
-  _createClass(IssueList, [{
-    key: "render",
-    value: function render() {
-      return React.createElement(
-        "div",
-        null,
-        React.createElement(
-          "h1",
-          null,
-          "Issue Tracker"
-        ),
-        React.createElement(IssueFilter, null),
-        React.createElement("hr", null),
-        React.createElement(IssueTable, null),
-        React.createElement("hr", null),
-        React.createElement(IssueAdd, null)
-      );
-    }
-  }]);
-
-  return IssueList;
-}(React.Component);
-
-var IssueRow = function (_React$Component4) {
-  _inherits(IssueRow, _React$Component4);
+var IssueRow = function (_React$Component2) {
+  _inherits(IssueRow, _React$Component2);
 
   function IssueRow() {
     _classCallCheck(this, IssueRow);
@@ -112,7 +57,7 @@ var IssueRow = function (_React$Component4) {
         React.createElement(
           "td",
           { style: borderedStyle },
-          this.props.issue_title
+          this.props.children
         )
       );
     }
@@ -121,8 +66,8 @@ var IssueRow = function (_React$Component4) {
   return IssueRow;
 }(React.Component);
 
-var IssueTable = function (_React$Component5) {
-  _inherits(IssueTable, _React$Component5);
+var IssueTable = function (_React$Component3) {
+  _inherits(IssueTable, _React$Component3);
 
   function IssueTable() {
     _classCallCheck(this, IssueTable);
@@ -158,14 +103,77 @@ var IssueTable = function (_React$Component5) {
         React.createElement(
           "tbody",
           null,
-          React.createElement(IssueRow, { issue_id: 1, issue_title: "Error in console when clicking Add" }),
-          React.createElement(IssueRow, { issue_id: 2, issue_title: "Missing bottom border on panel" })
+          React.createElement(
+            IssueRow,
+            { issue_id: 1 },
+            " Error in console when clicking Add"
+          ),
+          React.createElement(
+            IssueRow,
+            { issue_id: 2 },
+            " Missing bottom border on panel "
+          )
         )
       );
     }
   }]);
 
   return IssueTable;
+}(React.Component);
+
+var IssueAdd = function (_React$Component4) {
+  _inherits(IssueAdd, _React$Component4);
+
+  function IssueAdd() {
+    _classCallCheck(this, IssueAdd);
+
+    return _possibleConstructorReturn(this, (IssueAdd.__proto__ || Object.getPrototypeOf(IssueAdd)).apply(this, arguments));
+  }
+
+  _createClass(IssueAdd, [{
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        null,
+        "This is a placeholder for an Issue Add entry form."
+      );
+    }
+  }]);
+
+  return IssueAdd;
+}(React.Component);
+
+var IssueList = function (_React$Component5) {
+  _inherits(IssueList, _React$Component5);
+
+  function IssueList() {
+    _classCallCheck(this, IssueList);
+
+    return _possibleConstructorReturn(this, (IssueList.__proto__ || Object.getPrototypeOf(IssueList)).apply(this, arguments));
+  }
+
+  _createClass(IssueList, [{
+    key: "render",
+    value: function render() {
+      return React.createElement(
+        "div",
+        null,
+        React.createElement(
+          "h1",
+          null,
+          "Issue Tracker"
+        ),
+        React.createElement(IssueFilter, null),
+        React.createElement("hr", null),
+        React.createElement(IssueTable, null),
+        React.createElement("hr", null),
+        React.createElement(IssueAdd, null)
+      );
+    }
+  }]);
+
+  return IssueList;
 }(React.Component);
 
 ReactDOM.render(React.createElement(IssueList, null), contentNode);

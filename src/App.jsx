@@ -1,3 +1,4 @@
+
 const contentNode = document.getElementById('contents');
 
 class IssueFilter extends React.Component {
@@ -9,35 +10,35 @@ class IssueFilter extends React.Component {
 }
 
 const IssueRow = (props) => (
-      <tr>
-        <td>{props.issue.id}</td>
-        <td>{props.issue.status}</td>
-        <td>{props.issue.owner}</td>
-        <td>{props.issue.created.toDateString()}</td>
-        <td>{props.issue.effort}</td>
-        <td>{props.issue.completionDate ? props.issue.completionDate.toDateString() : ''}</td>
-        <td>{props.issue.title}</td>
-      </tr>
-    )
+  <tr>
+    <td>{props.issue.id}</td>
+    <td>{props.issue.status}</td>
+    <td>{props.issue.owner}</td>
+    <td>{props.issue.created.toDateString()}</td>
+    <td>{props.issue.effort}</td>
+    <td>{props.issue.completionDate ? props.issue.completionDate.toDateString() : ''}</td>
+    <td>{props.issue.title}</td>
+  </tr>
+)
 
 function IssueTable(props) {
-    const issueRows = props.issues.map(issue => <IssueRow key={issue.id} issue={issue} />)
-    return (
-      <table className="bordered-table">
-        <thead>
-          <tr>
-            <th>Id</th>
-            <th>Status</th>
-            <th>Owner</th>
-            <th>Created</th>
-            <th>Effort</th>
-            <th>Completion Date</th>
-            <th>Title</th>
-          </tr>
-        </thead>
-        <tbody>{issueRows}</tbody>
-      </table>
-    );
+  const issueRows = props.issues.map(issue => <IssueRow key={issue.id} issue={issue} />)
+  return (
+    <table className="bordered-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Status</th>
+          <th>Owner</th>
+          <th>Created</th>
+          <th>Effort</th>
+          <th>Completion Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>{issueRows}</tbody>
+    </table>
+  );
 }
 
 class IssueAdd extends React.Component {
@@ -53,7 +54,7 @@ class IssueAdd extends React.Component {
       owner: form.owner.value,
       title: form.title.value,
       status: 'New',
-      created: new Date()
+      created: new Date(),
     });
     // clear the form for the next input
     form.owner.value = ""; form.title.value = "";
@@ -91,8 +92,8 @@ class IssueList extends React.Component {
       console.log("Total count of records:", data._metadata.total_count);
       data.records.forEach(issue => {
         issue.created = new Date(issue.created);
-        if(issue.completionDate)
-        issue.completionDate = new Date(issue.completionDate);
+        if (issue.completionDate)
+          issue.completionDate = new Date(issue.completionDate);
       });
       this.setState({ issues: data.records });
     }).catch(err => {
@@ -105,22 +106,22 @@ class IssueList extends React.Component {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newIssue),
-    }).then(response =>
+    }).then(response => {
       if (response.ok) {
         response.json().then(updatedIssue => {
           updatedIssue.created = new Date(updatedIssue.created);
-          if (updaredIssue.completionDate)
+          if (updatedIssue.completionDate)
             updatedIssue.completionDate = new Date(updatedIssue.completionDate);
-          const newIssue = this.state.issues.concat(updatedIssue);
+          const newIssues = this.state.issues.concat(updatedIssue);
           this.setState({ issues: newIssues });
         });
       } else {
         response.json().then(error => {
-          alert('Failed to add issue: ' + error.message)
+          alert("Failed to add issue: " + error.message)
         });
       }
     }).catch(err => {
-      alert('Error in sendingdata to server: ' + err.message);
+      alert("Error in sending data to server: " + err.message);
     });
   }
 
@@ -138,4 +139,4 @@ class IssueList extends React.Component {
   }
 }
 
-ReactDOM.render(<IssueList />, contentNode);
+ReactDOM.render(<IssueList />, contentNode);    // Render the component inside the content Node

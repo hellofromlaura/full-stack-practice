@@ -1,10 +1,10 @@
 db = new Mongo().getDB('issuetracker');
 
-db.issue.remove({});
+db.issues.remove({});
 
-db.issue.insert([
+db.issues.insert([
   {
-    status: 'Open', owner: 'Raven',
+    status: 'Open', owner: 'Ravan',
     created: new Date('2016-08-15'), effort: 5, completionDate: undefined,
     title: 'Error in console when clicking Add',
   },
@@ -12,7 +12,7 @@ db.issue.insert([
     status: 'Assigned', owner: 'Eddie',
     created: new Date('2016-08-16'), effort: 14, completionDate: new Date('2016-08-30'),
     title: 'Missing bottom border on panel',
-  }
+  },
 ]);
 
 db.issues.createIndex({ status: 1 });

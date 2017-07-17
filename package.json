@@ -24,7 +24,8 @@
   "homepage": "https://github.com/laurawolf/full-stack-practice#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "mongodb": "^2.2.30"
   },
   "devDependencies": {
     "babel-cli": "^6.11.4",

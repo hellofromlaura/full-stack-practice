@@ -20,7 +20,6 @@ const IssueRow = (props) => (
       </tr>
     )
 
-
 function IssueTable(props) {
     const issueRows = props.issues.map(issue => <IssueRow key={issue.id} issue={issue} />)
     return (
@@ -36,11 +35,9 @@ function IssueTable(props) {
             <th>Title</th>
           </tr>
         </thead>
-        <tbody>
-          {issueRows}
-        </tbody>
+        <tbody>{issueRows}</tbody>
       </table>
-    )
+    );
 }
 
 class IssueAdd extends React.Component {
@@ -58,9 +55,8 @@ class IssueAdd extends React.Component {
       status: 'New',
       created: new Date()
     });
-    form.owner.value = ''; form.title.value = '';
-    console.log('owner', form.owner.value);
-    console.log('title', form.title.value);
+    // clear the form for the next input
+    form.owner.value = ""; form.title.value = "";
   }
 
   render() {
@@ -110,13 +106,19 @@ class IssueList extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newIssue),
     }).then(response =>
-      response.json()
-    ).then(updatedIssue => {
-      updatedIssue.created = new Date(updatedIssue.created);
-      if (updatedIssue.completionDate)
-        updatedIssue.completionDate = new Date(updatedIssue.completionDate);
-      const newIssue = this.state.issues.concat(updatedIssue);
-      this.setState({ issues: newIssues });
+      if (response.ok) {
+        response.json().then(updatedIssue => {
+          updatedIssue.created = new Date(updatedIssue.created);
+          if (updaredIssue.completionDate)
+            updatedIssue.completionDate = new Date(updatedIssue.completionDate);
+          const newIssue = this.state.issues.concat(updatedIssue);
+          this.setState({ issues: newIssues });
+        });
+      } else {
+        response.json().then(error => {
+          alert('Failed to add issue: ' + error.message)
+        });
+      }
     }).catch(err => {
       alert('Error in sendingdata to server: ' + err.message);
     });

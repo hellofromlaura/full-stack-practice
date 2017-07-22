@@ -63,8 +63,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var contentNode = document.getElementById('contents');
-
 	_reactDom2.default.render(_react2.default.createElement(_IssueList2.default, null), contentNode); // Render the component inside the content Node
+
+	if (false) {
+	  module.hot.accept();
+	}
 
 /***/ }),
 /* 1 */

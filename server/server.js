@@ -1,19 +1,25 @@
-'use strict'
+import SourceMapSupport from 'source-map-support';
+SourceMapSupport.install();
+import 'babel-polyfill';
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
-const Issue = require('./issue.js');
+import express from 'express';
+import bodyParser from 'body-parser';
+import { MongoClient } from 'mongodb';
+import Issue from './issue.js';
 
 const app = express();
 app.use(express.static('static'));
 app.use(bodyParser.json());
 
+let db;
+
 app.get('/api/issues', (req, res) => {
-  db.collection('issues').find().toArray().then(issues => {
+  db.collection('issues').find().toArray()
+  .then(issues => {
     const metadata = { total_count: issues.length };
-    res.json({ _metadata: metadata, records: issues })
-  }).catch(error => {
+    res.json({ _metadata: metadata, records: issues });
+  })
+  .catch(error => {
     console.log(error);
     res.status(500).json({ message: `Internal Server Error: ${error}` });
   });
@@ -22,8 +28,9 @@ app.get('/api/issues', (req, res) => {
 app.post('/api/issues', (req, res) => {
   const newIssue = req.body;
   newIssue.created = new Date();
-  if (!newIssue.status)
+  if (!newIssue.status) {
     newIssue.status = 'New';
+  }
 
   const err = Issue.validateIssue(newIssue);
   if (err) {
@@ -31,17 +38,19 @@ app.post('/api/issues', (req, res) => {
     return;
   }
 
-  db.collection('issues').insertOne(newIssue).then(result =>
-    db.collection('issues').find({ _id: result.insertedId }).limit(1).next()
-  ).then(newIssue => {
-    res.json(newIssue);
-  }).catch(error => {
+  db.collection('issues').insertOne(Issue.cleanupIssue(newIssue)).then(result =>
+    db.collection('issues').find({ _id: result.insertedId }).limit(1)
+    .next()
+  )
+  .then(savedIssue => {
+    res.json(savedIssue);
+  })
+  .catch(error => {
     console.log(error);
     res.status(500).json({ message: `Internal Server Error: ${error}` });
   });
 });
 
-let db;
 MongoClient.connect('mongodb://localhost/issuetracker').then(connection => {
   db = connection;
   app.listen(3000, () => {
